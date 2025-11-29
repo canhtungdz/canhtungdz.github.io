@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Liquid Glass</title>
+    
+    <style>
+        /* === RESET & BASE === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            
+            /* Nền gradient pastel nhẹ nhàng - tạo hiệu ứng minimalist */
+            background: linear-gradient(135deg, #e0f2fe 0%, #f3e8ff 50%, #fce7f3 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        /* === CONTAINER CHÍNH === */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* === HEADER - LIQUID GLASS EFFECT === */
+        .header-glass {
+            /* Hiệu ứng Liquid Glass */
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            
+            padding: 60px 40px;
+            margin-bottom: 60px;
+            
+            /* Layout flex cho header */
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            
+            /* Hiệu ứng transition mượt */
+            transition: all 0.3s ease;
+        }
+
+        .header-glass:hover {
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+
+        /* Container bên trái chứa avatar và tên */
+        .header-left {
+            flex-shrink: 0;
+            text-align: center;
+        }
+
+        /* Avatar hình chữ nhật */
+        .avatar {
+            width: 200px;
+            height: 250px;
+            border-radius: 20px;
+            object-fit: cover;
+            display: block;
+            margin-bottom: 16px;
+            
+            /* Viền kính xung quanh avatar */
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a202c;
+            letter-spacing: -0.5px;
+        }
+
+        /* Container bên phải chứa text giới thiệu */
+        .header-right {
+            flex: 1;
+        }
+
+        .intro-text {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #1a202c;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            
+            /* Hiệu ứng gradient text nổi bật */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            
+            /* Hiệu ứng text shadow để nổi bật hơn */
+            text-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+            
+            /* Animation */
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* === SECTION TITLE === */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 48px;
+            color: #1a202c;
+            letter-spacing: -0.5px;
+        }
+
+        /* === PROJECT GRID === */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+
+        /* === PROJECT CARD - LIQUID GLASS === */
+        .project-card {
+            /* Hiệu ứng Liquid Glass cho từng card */
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            
+            padding: 32px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hiệu ứng hover - nâng lên và sáng hơn */
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+            background: rgba(255, 255, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Hiệu ứng ánh sáng khi hover */
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1a202c;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-card p {
+            font-size: 1rem;
+            color: #4a5568;
+            margin-bottom: 24px;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-link {
+            display: inline-block;
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 24px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-link:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: translateX(4px);
+            color: #2563eb;
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 16px;
+            }
+
+            .header-glass {
+                padding: 40px 24px;
+                margin-bottom: 40px;
+                border-radius: 20px;
+                flex-direction: column;
+                text-align: center;
+                gap: 24px;
+            }
+
+            .avatar {
+                width: 150px;
+                height: 190px;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            .intro-text {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+                margin-bottom: 32px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .project-card {
+                padding: 24px;
+            }
+
+            .avatar {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .avatar {
+                width: 120px;
+                height: 150px;
+            }
+
+            h1 {
+                font-size: 1.1rem;
+            }
+
+            .header-glass {
+                padding: 32px 20px;
+            }
+
+            .intro-text {
+                font-size: 1.5rem;
+            }
+
+            .project-card h3 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- === HEADER / GIỚI THIỆU === -->
+        <header class="header-glass">
+            <!-- Phần bên trái: Ảnh + Tên -->
+            <div class="header-left">
+                <!-- 
+                    ⚠️ THAY ẢNH AVATAR TẠI ĐÂY:
+                    Thay đổi src="..." bằng đường dẫn ảnh của bạn
+                    Khuyến nghị: ảnh tỷ lệ 4:5 (ví dụ: 400x500px)
+                -->
+                <img src="images/avatar.jpeg" alt="Avatar" class="avatar">
+                
+                <!-- ⚠️ THAY TÊN CỦA BẠN TẠI ĐÂY -->
+                <h1>Nguyễn Cảnh Tùng</h1>
+            </div>
+            
+            <!-- Phần bên phải: Text giới thiệu nổi bật -->
+            <div class="header-right">
+                <!-- ⚠️ THAY TEXT GIỚI THIỆU NGẮN GỌN TẠI ĐÂY (2-5 từ thôi) -->
+                <p class="intro-text">
+                    Computer<br>
+                    Vision<br>
+                    <!-- Engineer -->
+                    Student
+                </p>
+            </div>
+        </header>
+
+        <!-- === DANH SÁCH DỰ ÁN === -->
+        <section>
+            <h2 class="section-title">Các dự án đã làm</h2>
+            
+            <div class="projects-grid">
+                <!-- 
+                    ⚠️ CÁC CARD DỰ ÁN - THAY ĐỔI NỘI DUNG VÀ LINK TẠI ĐÂY
+                    Mỗi card bao gồm: Tên dự án (h3), Mô tả (p), và Link (a href)
+                -->
+                
+                <!-- Card 1 -->
+                <div class="project-card">
+                    <h3>E-Commerce Platform</h3>
+                    <p>
+                        Nền tảng thương mại điện tử hiện đại với giao diện người dùng trực quan, 
+                        tích hợp giỏ hàng và thanh toán trực tuyến.
+                    </p>
+                    <!-- ⚠️ THAY LINK DỰ ÁN TẠI ĐÂY -->
+                    <a href="https://github.com/yourusername/project1" class="project-link" target="_blank">
+                        Xem dự án →
+                    </a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="project-card">
+                    <h3>Portfolio Designer</h3>
+                    <p>
+                        Công cụ tạo portfolio trực tuyến cho các nhà thiết kế và developer, 
+                        với nhiều template đẹp mắt và dễ tùy chỉnh.
+                    </p>
+                    <!-- ⚠️ THAY LINK DỰ ÁN TẠI ĐÂY -->
+                    <a href="https://github.com/yourusername/project2" class="project-link" target="_blank">
+                        Xem dự án →
+                    </a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="project-card">
+                    <h3>Weather Dashboard</h3>
+                    <p>
+                        Ứng dụng theo dõi thời tiết với giao diện đẹp mắt, hiển thị dự báo 
+                        chi tiết và các chỉ số môi trường quan trọng.
+                    </p>
+                    <!-- ⚠️ THAY LINK DỰ ÁN TẠI ĐÂY -->
+                    <a href="https://github.com/yourusername/project3" class="project-link" target="_blank">
+                        Xem dự án →
+                    </a>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="project-card">
+                    <h3>Task Management App</h3>
+                    <p>
+                        Ứng dụng quản lý công việc với khả năng tạo danh sách, đặt deadline, 
+                        và theo dõi tiến độ một cách hiệu quả.
+                    </p>
+                    <!-- ⚠️ THAY LINK DỰ ÁN TẠI ĐÂY -->
+                    <a href="https://github.com/yourusername/project4" class="project-link" target="_blank">
+                        Xem dự án →
+                    </a>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="project-card">
+                    <h3>Recipe Finder</h3>
+                    <p>
+                        Website tìm kiếm công thức nấu ăn với hàng ngàn món ăn từ khắp nơi, 
+                        kèm theo hướng dẫn chi tiết và hình ảnh minh họa.
+                    </p>
+                    <!-- ⚠️ THAY LINK DỰ ÁN TẠI ĐÂY -->
+                    <a href="https://github.com/yourusername/project5" class="project-link" target="_blank">
+                        Xem dự án →
+                    </a>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="project-card">
+                    <h3>Music Player</h3>
+                    <p>
+                        Ứng dụng nghe nhạc trực tuyến với giao diện tối giản, hỗ trợ playlist 
+                        và các tính năng điều khiển tiện lợi.
+                    </p>
+                    <!-- ⚠️ THAY LINK DỰ ÁN TẠI ĐÂY -->
+                    <a href="https://github.com/yourusername/project6" class="project-link" target="_blank">
+                        Xem dự án →
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // === JAVASCRIPT CHO HIỆU ỨNG NHẸ NHÀNG ===
+        
+        // Thêm hiệu ứng fade-in khi trang load
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.project-card');
+            const header = document.querySelector('.header-glass');
+            
+            // Fade in header
+            header.style.opacity = '0';
+            header.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                header.style.transition = 'all 0.6s ease';
+                header.style.opacity = '1';
+                header.style.transform = 'translateY(0)';
+            }, 100);
+            
+            // Fade in cards lần lượt
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 300 + (index * 100));
+            });
+        });
+
+        // Smooth scroll (nếu có thêm sections)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

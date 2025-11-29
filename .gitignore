@@ -1,0 +1,63 @@
+# ---------------------------------
+# 1. FILE HỆ THỐNG MÁY MAC (MACOS)
+# ---------------------------------
+# Thư mục chứa metadata của macOS
+.DS_Store
+
+# File dùng để lưu trữ trạng thái thư mục (thường gặp trong các thư mục đã nén)
+.AppleDouble
+.LSOverride
+
+# Các file tạm của ứng dụng iWork và Time Machine
+.DocumentRevisions-V100
+.TemporaryItems
+.Trashes
+.fseventsd
+
+# File tạm của Vim/Swap files
+.swp
+.swo
+
+# ---------------------------------
+# 2. THƯ MỤC VÀ FILE CỦA VS CODE
+# ---------------------------------
+# Thư mục cấu hình workspace của VS Code
+# Chứa cài đặt, snippets, và trạng thái của riêng bạn (ví dụ: các tab đã mở)
+.vscode/
+
+# Ngoại lệ: Giữ lại cài đặt extension nếu bạn muốn chia sẻ nó trong team
+# Bỏ dấu # ở dòng dưới nếu muốn giữ lại file này
+# !.vscode/extensions.json
+# Bỏ dấu # ở dòng dưới nếu muốn giữ lại file này
+# !.vscode/settings.json
+
+# ---------------------------------
+# 3. PHỤ THUỘC (DEPENDENCIES) & LOGS
+# ---------------------------------
+# Thư mục node_modules chứa tất cả các thư viện của dự án (cực lớn)
+# Chỉ cần lưu file package.json và package-lock.json
+node_modules/
+
+# Thư mục chứa các file log
+/logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ---------------------------------
+# 4. FILE TẠM/CACHE/BUILD
+# ---------------------------------
+# File tạm (temp files)
+*~
+~*
+\#*#
+
+# Các file nén và đóng gói (Nếu có)
+*.zip
+*.tar
+*.gz
+
+# Thư mục /dist hoặc /build nếu bạn có bước build cho JS/CSS
+/dist
+/build
