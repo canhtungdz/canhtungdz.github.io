@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - Liquid Glass</title>
-    
+
     <style>
         /* === RESET & BASE === */
         * {
@@ -17,11 +18,24 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
             line-height: 1.6;
             color: #2d3748;
-            
+
             /* Nền gradient pastel nhẹ nhàng - tạo hiệu ứng minimalist */
             background: linear-gradient(135deg, #e0f2fe 0%, #f3e8ff 50%, #fce7f3 100%);
             min-height: 100vh;
             padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* === PARTICLE CANVAS === */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
         }
 
         /* === CONTAINER CHÍNH === */
@@ -32,29 +46,31 @@
 
         /* === HEADER - LIQUID GLASS EFFECT === */
         .header-glass {
-            /* Hiệu ứng Liquid Glass */
-            background: rgba(255, 255, 255, 0.25);
+            /* Hiệu ứng Simple Blur - Frosted Glass */
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            /* Added subtle border */
             border-radius: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            /* Added soft shadow */
+
             padding: 60px 40px;
             margin-bottom: 60px;
-            
+
             /* Layout flex cho header */
             display: flex;
             align-items: center;
             gap: 40px;
-            
+
             /* Hiệu ứng transition mượt */
             transition: all 0.3s ease;
         }
 
         .header-glass:hover {
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-            transform: translateY(-2px);
+            /* Minimal hover effect */
+            background: rgba(255, 255, 255, 0.05);
         }
 
         /* Container bên trái chứa avatar và tên */
@@ -71,7 +87,7 @@
             object-fit: cover;
             display: block;
             margin-bottom: 16px;
-            
+
             /* Viền kính xung quanh avatar */
             border: 3px solid rgba(255, 255, 255, 0.5);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
@@ -95,18 +111,34 @@
             color: #1a202c;
             line-height: 1.2;
             letter-spacing: -1px;
-            
-            /* Hiệu ứng gradient text nổi bật */
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+
+            /* Hiệu ứng gradient text nổi bật - Modern Neon */
+            background: linear-gradient(to right, #00f260, #0575E6, #c471ed, #f64f59);
+            background-size: 300% auto;
+            animation: gradientText 10s ease infinite, fadeInUp 0.8s ease-out;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            
+
             /* Hiệu ứng text shadow để nổi bật hơn */
             text-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
-            
-            /* Animation */
-            animation: fadeInUp 0.8s ease-out;
+
+            /* Animation combined above */
+            /* animation: fadeInUp 0.8s ease-out; */
+        }
+
+        @keyframes gradientText {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         @keyframes fadeInUp {
@@ -114,6 +146,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -140,14 +173,16 @@
 
         /* === PROJECT CARD - LIQUID GLASS === */
         .project-card {
-            /* Hiệu ứng Liquid Glass cho từng card */
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            /* Hiệu ứng Simple Blur cho từng card */
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            /* Added subtle border */
             border-radius: 24px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-            
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            /* Added soft shadow */
+
             padding: 32px;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
@@ -156,10 +191,9 @@
 
         /* Hiệu ứng hover - nâng lên và sáng hơn */
         .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
-            background: rgba(255, 255, 255, 0.4);
-            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.06);
+            /* Removed border-color change */
         }
 
         /* Hiệu ứng ánh sáng khi hover */
@@ -288,7 +322,9 @@
         }
     </style>
 </head>
+
 <body>
+    <canvas id="particle-canvas"></canvas>
     <div class="container">
         <!-- === HEADER / GIỚI THIỆU === -->
         <header class="header-glass">
@@ -300,11 +336,11 @@
                     Khuyến nghị: ảnh tỷ lệ 4:5 (ví dụ: 400x500px)
                 -->
                 <img src="images/avatar.jpeg" alt="Avatar" class="avatar">
-                
+
                 <!-- ⚠️ THAY TÊN CỦA BẠN TẠI ĐÂY -->
                 <h1>Nguyễn Cảnh Tùng</h1>
             </div>
-            
+
             <!-- Phần bên phải: Text giới thiệu nổi bật -->
             <div class="header-right">
                 <!-- ⚠️ THAY TEXT GIỚI THIỆU NGẮN GỌN TẠI ĐÂY (2-5 từ thôi) -->
@@ -320,18 +356,18 @@
         <!-- === DANH SÁCH DỰ ÁN === -->
         <section>
             <h2 class="section-title">Các dự án đã làm</h2>
-            
+
             <div class="projects-grid">
                 <!-- 
                     ⚠️ CÁC CARD DỰ ÁN - THAY ĐỔI NỘI DUNG VÀ LINK TẠI ĐÂY
                     Mỗi card bao gồm: Tên dự án (h3), Mô tả (p), và Link (a href)
                 -->
-                
+
                 <!-- Card 1 -->
                 <div class="project-card">
                     <h3>E-Commerce Platform</h3>
                     <p>
-                        Nền tảng thương mại điện tử hiện đại với giao diện người dùng trực quan, 
+                        Nền tảng thương mại điện tử hiện đại với giao diện người dùng trực quan,
                         tích hợp giỏ hàng và thanh toán trực tuyến.
                     </p>
                     <!-- ⚠️ THAY LINK DỰ ÁN TẠI ĐÂY -->
@@ -344,7 +380,7 @@
                 <div class="project-card">
                     <h3>Portfolio Designer</h3>
                     <p>
-                        Công cụ tạo portfolio trực tuyến cho các nhà thiết kế và developer, 
+                        Công cụ tạo portfolio trực tuyến cho các nhà thiết kế và developer,
                         với nhiều template đẹp mắt và dễ tùy chỉnh.
                     </p>
                     <!-- ⚠️ THAY LINK DỰ ÁN TẠI ĐÂY -->
@@ -357,7 +393,7 @@
                 <div class="project-card">
                     <h3>Weather Dashboard</h3>
                     <p>
-                        Ứng dụng theo dõi thời tiết với giao diện đẹp mắt, hiển thị dự báo 
+                        Ứng dụng theo dõi thời tiết với giao diện đẹp mắt, hiển thị dự báo
                         chi tiết và các chỉ số môi trường quan trọng.
                     </p>
                     <!-- ⚠️ THAY LINK DỰ ÁN TẠI ĐÂY -->
@@ -370,7 +406,7 @@
                 <div class="project-card">
                     <h3>Task Management App</h3>
                     <p>
-                        Ứng dụng quản lý công việc với khả năng tạo danh sách, đặt deadline, 
+                        Ứng dụng quản lý công việc với khả năng tạo danh sách, đặt deadline,
                         và theo dõi tiến độ một cách hiệu quả.
                     </p>
                     <!-- ⚠️ THAY LINK DỰ ÁN TẠI ĐÂY -->
@@ -383,7 +419,7 @@
                 <div class="project-card">
                     <h3>Recipe Finder</h3>
                     <p>
-                        Website tìm kiếm công thức nấu ăn với hàng ngàn món ăn từ khắp nơi, 
+                        Website tìm kiếm công thức nấu ăn với hàng ngàn món ăn từ khắp nơi,
                         kèm theo hướng dẫn chi tiết và hình ảnh minh họa.
                     </p>
                     <!-- ⚠️ THAY LINK DỰ ÁN TẠI ĐÂY -->
@@ -396,7 +432,7 @@
                 <div class="project-card">
                     <h3>Music Player</h3>
                     <p>
-                        Ứng dụng nghe nhạc trực tuyến với giao diện tối giản, hỗ trợ playlist 
+                        Ứng dụng nghe nhạc trực tuyến với giao diện tối giản, hỗ trợ playlist
                         và các tính năng điều khiển tiện lợi.
                     </p>
                     <!-- ⚠️ THAY LINK DỰ ÁN TẠI ĐÂY -->
@@ -410,27 +446,27 @@
 
     <script>
         // === JAVASCRIPT CHO HIỆU ỨNG NHẸ NHÀNG ===
-        
+
         // Thêm hiệu ứng fade-in khi trang load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const cards = document.querySelectorAll('.project-card');
             const header = document.querySelector('.header-glass');
-            
+
             // Fade in header
             header.style.opacity = '0';
             header.style.transform = 'translateY(20px)';
-            
+
             setTimeout(() => {
                 header.style.transition = 'all 0.6s ease';
                 header.style.opacity = '1';
                 header.style.transform = 'translateY(0)';
             }, 100);
-            
+
             // Fade in cards lần lượt
             cards.forEach((card, index) => {
                 card.style.opacity = '0';
                 card.style.transform = 'translateY(30px)';
-                
+
                 setTimeout(() => {
                     card.style.transition = 'all 0.6s ease';
                     card.style.opacity = '1';
@@ -452,6 +488,136 @@
                 }
             });
         });
+
+        // === FLOW FIELD PARTICLE EFFECT ===
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particlesArray = [];
+        let flowField;
+        let flowFieldAnimation;
+        let hue = 0; // Global hue for color cycling
+
+        // Flow Field Settings
+        const flowFieldSettings = {
+            zoom: 0.005, // Controls the scale of the noise/pattern
+            curve: 0.8,  // Controls how curvy the paths are
+            speed: 0.5,  // Particle speed (Slower)
+            particleCount: 800, // Number of particles
+            trailOpacity: 0.12 // Medium fade (smoother than 0.2, cleaner than 0.05)
+        };
+
+        // Set canvas size
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.history = [{ x: this.x, y: this.y }];
+                this.maxLength = Math.random() * 10 + 5;
+                this.angle = 0;
+                this.speed = Math.random() * 1 + 0.5;
+                this.timer = this.maxLength * 2;
+                // Color is now dynamic in draw()
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.moveTo(this.history[0].x, this.history[0].y);
+                for (let i = 0; i < this.history.length; i++) {
+                    ctx.lineTo(this.history[i].x, this.history[i].y);
+                }
+                // Dynamic HSL Color:
+                // Hue based on X position + global hue timer
+                // Saturation: 70% (vibrant but not neon burn)
+                // Lightness: 60% (visible on light/dark backgrounds)
+                const finalHue = (this.x * 0.1 + hue) % 360;
+
+                ctx.strokeStyle = `hsla(${finalHue}, 70%, 60%, 0.8)`;
+                ctx.stroke();
+            }
+
+            update() {
+                this.timer--;
+                if (this.timer >= 1) {
+                    // Calculate angle based on position (Pseudo-noise using sin/cos)
+                    // This creates the "Flow Field" effect without an external noise library
+                    let x = this.x * flowFieldSettings.zoom;
+                    let y = this.y * flowFieldSettings.zoom;
+                    this.angle = (Math.cos(x) + Math.sin(y)) * flowFieldSettings.curve;
+
+                    this.x += Math.cos(this.angle) * this.speed;
+                    this.y += Math.sin(this.angle) * this.speed;
+
+                    this.history.push({ x: this.x, y: this.y });
+                    if (this.history.length > this.maxLength) {
+                        this.history.shift();
+                    }
+                } else if (this.history.length > 1) {
+                    this.history.shift();
+                } else {
+                    this.reset();
+                }
+
+                // Wrap around screen
+                if (this.x > canvas.width) { this.x = 0; this.resetHistory(); }
+                else if (this.x < 0) { this.x = canvas.width; this.resetHistory(); }
+                if (this.y > canvas.height) { this.y = 0; this.resetHistory(); }
+                else if (this.y < 0) { this.y = canvas.height; this.resetHistory(); }
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.history = [{ x: this.x, y: this.y }];
+                this.timer = this.maxLength * 2;
+            }
+
+            resetHistory() {
+                this.history = [{ x: this.x, y: this.y }];
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            // Calculate particle count based on screen area to keep performance consistent
+            const area = canvas.width * canvas.height;
+            const count = Math.floor(area / 2000); // Adjust density here
+
+            for (let i = 0; i < count; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animate() {
+            flowFieldAnimation = requestAnimationFrame(animate);
+
+            // Create trail effect by not fully clearing the canvas
+            ctx.fillStyle = `rgba(255, 255, 255, ${flowFieldSettings.trailOpacity})`;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+
+            // Cycle hue over time
+            hue += 0.5;
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            cancelAnimationFrame(flowFieldAnimation);
+            init();
+            animate();
+        });
+
+        init();
+        animate();
     </script>
 </body>
+
 </html>
